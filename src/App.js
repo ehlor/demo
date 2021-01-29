@@ -19,7 +19,9 @@ function App() {
             setColor(prev => (prev + 1) % colorList.length)
         }, 10000)
         window.addEventListener('keydown', handleActivity)
-        return () => window.removeEventListener('keydown', handleActivity)
+        return () => {
+            window.removeEventListener('keydown', handleActivity)
+        }
     }, [])
 
     return (
