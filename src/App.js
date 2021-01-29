@@ -9,16 +9,18 @@ function App() {
     const [openPopup, setOpenPopup] = useState(false)
     const [currentTime, setCurrentTime] = useState(0)
 
+    const handleActivity = () => {
+        setOpenPopup(true)
+        setCurrentTime(Date.now())
+    }
+
     useEffect(() => {
         setInterval(() => {
             setColor(prev => (prev + 1) % colorList.length)
         }, 10000)
+        window.addEventListener('keydown', handleActivity)
+        return () => window.removeEventListener('keydown', handleActivity)
     }, [])
-
-    const handleMouseMove = () => {
-        setOpenPopup(true)
-        setCurrentTime(Date.now())
-    }
 
     return (
         <div 
@@ -26,7 +28,7 @@ function App() {
             style={{
                 backgroundColor: colorList[color]
             }}
-            onMouseMove={handleMouseMove}
+            onMouseMove={handleActivity}
         >
             {openPopup && 
                 <Popup 
